@@ -1,0 +1,5 @@
+packages:
+  - "frontend"
+  - "backend"
+
+minimumReleaseAge: 1440 # 24 horas
