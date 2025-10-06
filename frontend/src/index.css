@@ -1,1 +1,11 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Tahoma&display=swap');
+
+body {
+    font-family: 'Tahoma';
+    background-image: url('/xp-bliss.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+
+}
