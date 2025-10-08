@@ -1,6 +1,6 @@
 import { useAuth } from "@/context/auth.context";
 import { ArrowRightFromLine, LayoutDashboard, User2 } from "lucide-react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const Navbar = () => {
   const { logout } = useAuth();
@@ -26,10 +26,13 @@ const Navbar = () => {
       </div>
 
       <div className="flex  gap-5">
-        <button className="bg-blue-500 cursor-pointer hover:bg-blue-600 border-2 border-gray-300 shadow-inner px-3 py-1 flex items-center gap-2 text-white font-bold text-sm select-none active:shadow-none active:translate-y-0.5 rounded-sm">
+        <Link
+          to="/"
+          className="bg-blue-500 cursor-pointer hover:bg-blue-600 border-2 border-gray-300 shadow-inner px-3 py-1 flex items-center gap-2 text-white font-bold text-sm select-none active:shadow-none active:translate-y-0.5 rounded-sm"
+        >
           <LayoutDashboard className="w-4 h-4" />
           Boards
-        </button>
+        </Link>
 
         <button
           onClick={onLogout}
