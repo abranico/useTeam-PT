@@ -10,7 +10,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './infrastructure/services/auth/jwt.strategy';
 import { BoardController } from './controllers/board.controller';
 import { BoardService } from './application/services/board.service';
-import { BoardModule } from './application/modules/board.module';
+import { ColumnController } from './controllers/column.controller';
+import { ColumnService } from './application/services/column.service';
 
 @Module({
   imports: [
@@ -21,11 +22,17 @@ import { BoardModule } from './application/modules/board.module';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [UserController, AuthController, BoardController],
+  controllers: [
+    UserController,
+    AuthController,
+    BoardController,
+    ColumnController,
+  ],
   providers: [
     { provide: 'IUserService', useClass: UserService },
     { provide: 'IAuthService', useClass: AuthService },
     { provide: 'IBoardService', useClass: BoardService },
+    { provide: 'IColumnService', useClass: ColumnService },
     JwtStrategy,
   ],
 })
