@@ -7,6 +7,7 @@ import { User, UserSchema } from './models/user.model';
 import { UserRepository } from './repositories/user.repository';
 import { BoardRepository } from './repositories/board.repository';
 import { ColumnRepository } from './repositories/column.repository';
+import { TaskRepository } from './repositories/task.repository';
 
 @Module({
   imports: [
@@ -26,14 +27,19 @@ import { ColumnRepository } from './repositories/column.repository';
 
     ColumnRepository,
     { provide: 'IColumnRepository', useExisting: ColumnRepository },
+
+    TaskRepository,
+    { provide: 'ITaskRepository', useExisting: TaskRepository },
   ],
   exports: [
     'IUserRepository',
     'IBoardRepository',
     'IColumnRepository',
+    'ITaskRepository',
     UserRepository,
     BoardRepository,
     ColumnRepository,
+    TaskRepository,
   ],
 })
 export class DataServicesModule {}

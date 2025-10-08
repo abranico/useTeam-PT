@@ -5,7 +5,7 @@ export class Task {
   id: string;
   title: string;
   description: string;
-  assignedTo: User;
+  assignedTo: User | undefined;
   column: Column;
   order: number;
 }

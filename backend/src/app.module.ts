@@ -12,6 +12,8 @@ import { BoardController } from './controllers/board.controller';
 import { BoardService } from './application/services/board.service';
 import { ColumnController } from './controllers/column.controller';
 import { ColumnService } from './application/services/column.service';
+import { TaskController } from './controllers/task.controller';
+import { TaskService } from './application/services/task.service';
 
 @Module({
   imports: [
@@ -27,12 +29,15 @@ import { ColumnService } from './application/services/column.service';
     AuthController,
     BoardController,
     ColumnController,
+    TaskController,
   ],
   providers: [
     { provide: 'IUserService', useClass: UserService },
     { provide: 'IAuthService', useClass: AuthService },
     { provide: 'IBoardService', useClass: BoardService },
     { provide: 'IColumnService', useClass: ColumnService },
+    { provide: 'ITaskService', useClass: TaskService },
+
     JwtStrategy,
   ],
 })
