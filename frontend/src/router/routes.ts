@@ -4,6 +4,7 @@ import App from "@/App";
 import Dashboard from "@/pages/Dashboard";
 import Board from "@/pages/Board";
 import Login from "@/pages/Login";
+import Register from "@/pages/Register";
 
 export const router = createBrowserRouter([
   {
@@ -17,5 +18,9 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     Component: Login,
+  },
+  {
+    path: "/register",
+    Component: Register,
   },
 ]);

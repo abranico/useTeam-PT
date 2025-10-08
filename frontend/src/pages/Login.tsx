@@ -2,14 +2,14 @@
 import { useAuth } from "@/context/auth.context";
 import { login } from "@/services/auth.service";
 import React, { useState } from "react";
-import { Navigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const { user, handleSetToken } = useAuth();
   if (user) return <Navigate to="/" />;
 
@@ -17,8 +17,8 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await login(email, password);
-      handleSetToken(response.token);
+      const token = await login(email, password);
+      handleSetToken(token);
     } catch (error) {
       setError("Correo o contraseña incorrectos");
     } finally {
@@ -88,6 +88,12 @@ const Login = () => {
               Iniciar sesión
             </button>
           </form>
+          <div className="mt-4  text-center">
+            ¿No tenés cuenta?{" "}
+            <Link to="/register" className="text-blue-600 hover:underline">
+              Registrate aquí
+            </Link>
+          </div>
           <div
             className={`text-red-400 h-6 mt-6 text-center ${
               error ? "" : "opacity-0"
