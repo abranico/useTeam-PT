@@ -40,13 +40,20 @@ export class BoardRepository implements IBoardRepository {
     return boards.map((board) => this.mapBoard(board));
   }
 
-  async create(board: Board): Promise<void> {
+  async create(board: Board): Promise<Board> {
     const boardDoc = new this._boardModel({
       title: board.title,
       owner: new Types.ObjectId(board.owner.id),
     });
 
     await boardDoc.save();
+    await boardDoc.populate([
+      { path: 'owner', select: 'name email' },
+      { path: 'collaborators', select: 'name email' },
+    ]);
+
+    // Mapear y devolver
+    return this.mapBoard(boardDoc);
   }
 
   async addCollaborator(boardId: string, userId: string): Promise<void> {

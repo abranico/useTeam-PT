@@ -10,12 +10,12 @@ export class ColumnService implements IColumnService {
     private readonly _columnRepository: IColumnRepository,
   ) {}
 
-  async create(title: string, boardId: string): Promise<void> {
+  async create(title: string, boardId: string): Promise<Column> {
     const column = new Column();
     column.title = title;
     column.board = { id: boardId } as any;
 
-    await this._columnRepository.create(column);
+    return this._columnRepository.create(column);
   }
 
   getByBoard(boardId: string): Promise<Column[]> {

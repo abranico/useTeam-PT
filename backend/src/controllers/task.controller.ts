@@ -25,8 +25,8 @@ export class TaskController {
   ) {}
 
   @Post()
-  async create(@Body() dto: TaskCreateDto): Promise<void> {
-    await this._taskService.create(
+  async create(@Body() dto: TaskCreateDto): Promise<Task> {
+    return await this._taskService.create(
       dto.title,
       dto.columnId,
       dto.description,

@@ -23,8 +23,8 @@ export class ColumnController {
   ) {}
 
   @Post()
-  async create(@Body() dto: ColumnCreateDto): Promise<void> {
-    await this._columnService.create(dto.title, dto.boardId);
+  async create(@Body() dto: ColumnCreateDto): Promise<Column> {
+    return await this._columnService.create(dto.title, dto.boardId);
   }
 
   @Get('board/:boardId')

@@ -6,7 +6,7 @@ export interface ITaskService {
     columnId: string,
     description?: string,
     assignedToId?: string,
-  ): Promise<void>;
+  ): Promise<Task>;
   getByColumn(columnId: string): Promise<Task[]>;
   moveTask(taskId: string, newColumnId: string): Promise<void>;
 }

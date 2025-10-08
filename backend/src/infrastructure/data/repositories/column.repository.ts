@@ -12,13 +12,14 @@ export class ColumnRepository implements IColumnRepository {
     this._columnModel = columnModel;
   }
 
-  async create(column: Column): Promise<void> {
+  async create(column: Column): Promise<Column> {
     const doc = new this._columnModel({
       title: column.title,
       board: new Types.ObjectId(column.board.id),
       order: column.order,
     });
     await doc.save();
+    return this.mapColumn(doc);
   }
 
   async getByBoard(boardId: string): Promise<Column[]> {

@@ -15,12 +15,12 @@ export class BoardService implements IBoardService {
     private readonly _boardRepository: IBoardRepository,
   ) {}
 
-  async create(title: string, ownerId: string): Promise<void> {
+  async create(title: string, ownerId: string): Promise<Board> {
     const board = new Board();
     board.title = title;
     board.owner = { id: ownerId } as any;
 
-    await this._boardRepository.create(board);
+    return await this._boardRepository.create(board);
   }
 
   async getBoardsByUser(userId: string): Promise<Board[]> {

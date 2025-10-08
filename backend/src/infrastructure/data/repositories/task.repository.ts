@@ -11,7 +11,7 @@ export class TaskRepository implements ITaskRepository {
     @InjectModel(Task.name) private readonly _taskModel: Model<TaskDocument>,
   ) {}
 
-  async create(task: Task): Promise<void> {
+  async create(task: Task): Promise<Task> {
     const doc = new this._taskModel({
       title: task.title,
       description: task.description,
@@ -21,6 +21,12 @@ export class TaskRepository implements ITaskRepository {
       column: new Types.ObjectId(task.column.id),
     });
     await doc.save();
+
+    await doc.populate([
+      { path: 'assignedTo', select: 'name email' },
+      { path: 'column', select: 'title' },
+    ]);
+    return this.mapTask(doc);
   }
 
   async getByColumn(columnId: string): Promise<Task[]> {
@@ -74,7 +80,7 @@ export class TaskRepository implements ITaskRepository {
         id: doc.column._id.toString(),
         title: doc.column.title,
         order: doc.column.order,
-        board: { id: doc.column.board.toString() } as any,
+        board: doc.board,
       },
       order: doc.order,
     };

@@ -15,14 +15,14 @@ export class TaskService implements ITaskService {
     columnId: string,
     description?: string,
     assignedToId?: string,
-  ): Promise<void> {
+  ): Promise<Task> {
     const task = new Task();
     task.title = title;
     task.column = { id: columnId } as any;
     task.description = description || '';
     task.assignedTo = assignedToId ? ({ id: assignedToId } as any) : null;
 
-    await this._taskRepository.create(task);
+    return await this._taskRepository.create(task);
   }
 
   getByColumn(columnId: string): Promise<Task[]> {
