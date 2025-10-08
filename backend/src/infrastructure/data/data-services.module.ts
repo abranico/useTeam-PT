@@ -5,6 +5,7 @@ import { Column, ColumnSchema } from './models/column.model';
 import { Task, TaskSchema } from './models/task.model';
 import { User, UserSchema } from './models/user.model';
 import { UserRepository } from './repositories/user.repository';
+import { BoardRepository } from './repositories/board.repository';
 
 @Module({
   imports: [
@@ -18,7 +19,15 @@ import { UserRepository } from './repositories/user.repository';
   providers: [
     UserRepository,
     { provide: 'IUserRepository', useExisting: UserRepository },
+
+    BoardRepository,
+    { provide: 'IBoardRepository', useExisting: BoardRepository },
   ],
-  exports: ['IUserRepository', UserRepository],
+  exports: [
+    'IUserRepository',
+    'IBoardRepository',
+    UserRepository,
+    BoardRepository,
+  ],
 })
 export class DataServicesModule {}

@@ -15,7 +15,7 @@ export class AuthController {
   ) {}
 
   @ApiBearerAuth()
-  @Get('ping')
+  @Get('me')
   @UseGuards(JwtAuthGuard)
   ping(@User() user: UserPayload) {
     return user;
@@ -29,6 +29,6 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
-    return this._authService.login(loginDto);
+    return await this._authService.login(loginDto);
   }
 }

@@ -23,7 +23,6 @@ export class AuthService implements IAuthService {
 
   async register(registerDto: RegisterDto): Promise<void> {
     const { name, email, password } = registerDto;
-    console.log({ password });
     const userExists = await this._userRepository.findByEmail(email);
     if (userExists) throw new ConflictException('Email already exists');
     const hashedPassword: string = await bcrypt.hash(password, 10);

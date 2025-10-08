@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { Board } from 'src/domain/entities/board';
 
 @Schema({ timestamps: true })
 export class Column extends Document {
@@ -8,7 +7,7 @@ export class Column extends Document {
   title: string;
 
   @Prop({ type: Types.ObjectId, ref: 'Board', required: true })
-  board: Board;
+  board: Types.ObjectId;
 
   @Prop({ required: true })
   order: number;

@@ -8,6 +8,9 @@ import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './application/services/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './infrastructure/services/auth/jwt.strategy';
+import { BoardController } from './controllers/board.controller';
+import { BoardService } from './application/services/board.service';
+import { BoardModule } from './application/modules/board.module';
 
 @Module({
   imports: [
@@ -18,10 +21,11 @@ import { JwtStrategy } from './infrastructure/services/auth/jwt.strategy';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [UserController, AuthController],
+  controllers: [UserController, AuthController, BoardController],
   providers: [
     { provide: 'IUserService', useClass: UserService },
     { provide: 'IAuthService', useClass: AuthService },
+    { provide: 'IBoardService', useClass: BoardService },
     JwtStrategy,
   ],
 })

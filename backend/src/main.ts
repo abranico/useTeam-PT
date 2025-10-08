@@ -17,6 +17,13 @@ async function bootstrap() {
     }),
   );
 
+  // CORS
+  app.enableCors({
+    origin: '*',
+    methods: '*',
+    allowedHeaders: '*',
+  });
+
   // Swagger
   const options = new DocumentBuilder()
     .setTitle('Kanban-XP API')
