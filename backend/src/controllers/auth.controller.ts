@@ -1,7 +1,11 @@
-import { Controller, Post, Body, Inject, Get } from '@nestjs/common';
+import { Controller, Post, Body, Inject, Get, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { LoginDto } from 'src/application/dto/login.dto';
 import { RegisterDto } from 'src/application/dto/register.dto';
+import { UserPayload } from 'src/application/dto/user-payload.dto';
 import { IAuthService } from 'src/application/interfaces/auth-service.interface';
+import { User } from 'src/decorators/user.decorator';
+import { JwtAuthGuard } from 'src/infrastructure/services/auth/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -10,9 +14,11 @@ export class AuthController {
     private readonly _authService: IAuthService,
   ) {}
 
+  @ApiBearerAuth()
   @Get('ping')
-  ping() {
-    return 'pong';
+  @UseGuards(JwtAuthGuard)
+  ping(@User() user: UserPayload) {
+    return user;
   }
 
   @Post('register')

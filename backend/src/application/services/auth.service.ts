@@ -11,6 +11,7 @@ import {
 import { User } from 'src/domain/entities/user';
 import { LoginDto } from '../dto/login.dto';
 import { IAuthService } from '../interfaces/auth-service.interface';
+import { config } from 'src/config';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -45,9 +46,12 @@ export class AuthService implements IAuthService {
   }
 
   private generateToken(userId: string, name: string): string {
-    return this._jwtService.sign({
-      sub: userId,
-      name,
-    });
+    return this._jwtService.sign(
+      {
+        sub: userId,
+        name,
+      },
+      { secret: config.JWT_SECRET },
+    );
   }
 }
